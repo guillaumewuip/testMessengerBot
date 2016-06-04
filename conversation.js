@@ -76,15 +76,13 @@
                         callback: (response, convo) => {
                             convo.say(`Voilà qui fait plaisir à entendre !`);
                             convo.next();
-                            //status == 'completed'
                         }
                     },
                     {
                         pattern: 'no|non|nope|pas fort|bof|trise',
                         callback: (response, convo) => {
                             convo.say(`ohhh :'( #triste`);
-                            convo.stop();
-                            //status == 'stopped'
+                            convo.next();
                         }
                     },
                     {
@@ -97,8 +95,6 @@
                 ]);
 
                 api.end(user)(response, convo);
-
-                convo.next();
             }
         },
 
