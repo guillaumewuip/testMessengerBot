@@ -11,7 +11,9 @@
         hello: (user) => {
             return (response, convo) => {
                 console.log(user);
+
                 convo.say(`Bonjour ${user.first_name} ${user.last_name} :D`);
+
                 api.confirmUser(user)(response, convo);
                 convo.next();
             }
@@ -47,6 +49,7 @@
                         }
                     }
                 }, (response, convo) => {
+
                     if (response.text === PROFILE_YES) {
                         convo.say(`J'en étais sûr !`);
                     }
@@ -57,7 +60,9 @@
                                   + `${user.first_name} ${user.last_name}`);
                         convo.say('Mais bon, passons ...');
                     }
-                    api.askFeeling(user);
+
+                    api.askFeeling(user)(response, convo);
+
                     convo.next();
                 });
             }
@@ -91,7 +96,7 @@
                     }
                 ]);
 
-                end(user);
+                api.end(user)(response, convo);
 
                 convo.next();
             }
