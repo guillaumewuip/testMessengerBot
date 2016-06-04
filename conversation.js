@@ -2,6 +2,10 @@
 
 (() => {
 
+    const
+        PROFILE_YES = 'PROFILE_YES',
+        PROFILE_NO  = 'PROFILE_NO';
+
     const api = {
 
         hello: (user) => {
@@ -29,12 +33,12 @@
                                     'buttons': [
                                         {
                                             'type': 'postback',
-                                            'payload': 'PROFILE_YES',
+                                            'payload': PROFILE_YES,
                                             'title': 'Oui',
                                         },
                                         {
                                             'type': 'postback',
-                                            'payload': 'PROFILE_NO',
+                                            'payload': PROFILE_NO,
                                             'title': 'Non',
                                         },
                                     ]
@@ -43,11 +47,64 @@
                         }
                     }
                 }, (response, convo) => {
-                    console.log(response);
+                    if (response.text === PROFILE_YES) {
+                        convo.say(`J'en étais sûr !`);
+                    }
+                    else {
+                        let menteur = user.gender === 'male'
+                                        ? 'menteur' : 'menteuse';
+                        convo.say(`Vous êtes un ${menteur} `
+                                  + `${user.first_name} ${user.last_name}`);
+                        convo.say('Mais bon, passons ...');
+                    }
+                    api.askFeeling(user);
                     convo.next();
                 });
             }
         },
+
+        askFeeling: (user) => {
+            return (response, convo) => {
+                convo.ask('Ça va bien ?', [
+                    {
+                        pattern: convo.utterances.yes,
+                        callback: (response, convo) => {
+                            convo.say(`Voilà qui fait plaisir à entendre !`);
+                            convo.next();
+                            //status == 'completed'
+                        }
+                    },
+                    {
+                        pattern: 'no',
+                        callback: (response, convo) => {
+                            convo.say(`ohhh :'( #triste`);
+                            convo.stop();
+                            //status == 'stopped'
+                        }
+                    },
+                    {
+                        default: true,
+                        callback: (response, convo) => {
+                            convo.say('Je prends ça pour un oui !');
+                            convo.next();
+                        }
+                    }
+                ]);
+
+                end(user);
+
+                convo.next();
+            }
+        },
+
+        end: (user) => {
+            return (response, convo) => {
+                convo.ask(`Bon écoute ${user.first_name}`);
+                convo.ask(`Ça m'a fait plaisir de t'entendre !`);
+                convo.ask(`++`);
+            };
+        },
+
     };
 
     module.exports = api;

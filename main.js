@@ -56,4 +56,9 @@
         }
     );
 
+    controller.on('message_received', function(bot, message) {
+        bot.reply(message, 'Essayez de me dire bonjour !');
+        return false;
+    });
+
 })();

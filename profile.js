@@ -29,15 +29,17 @@
                 request.get(
                     {
                         url,
-                        json:true
-                    }, (err, response, body) => {
-                    if (!err && response.statusCode === 200) {
-                        resolve(body);
+                        json: true,
+                    },
+                    (err, response, body) => {
+                        if (!err && response.statusCode === 200) {
+                            resolve(body);
+                        }
+                        else {
+                            resject(err);
+                        }
                     }
-                    else {
-                        resject(err);
-                    }
-                });
+                );
             });
         },
     }
