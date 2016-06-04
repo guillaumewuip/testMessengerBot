@@ -36,4 +36,17 @@
         });
     });
 
+
+    controller.on('facebook_optin', (bot, message) => {
+        var reply = 'Welcome!';
+
+        bot.reply(message, reply, (err) => {
+            if (err) {
+                console.error('error');
+            }
+            console.log('reply send');
+        });
+
+    });
+
 })();
