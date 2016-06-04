@@ -1,9 +1,11 @@
+'use strict';
+
 (() => {
 
-    'use strict';
-
     const
-        Botkit = require('botkit');
+        Botkit          = require('botkit'),
+        profile         = require('./profile'),
+        conversation    = require('./conversation');
 
     const
         ACCESS_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
@@ -26,7 +28,6 @@
     const bot = controller.spawn();
 
     controller.setupWebserver(PORT, (err, webserver) => {
-
         if (err) {
             console.error(err);
         }
@@ -36,34 +37,22 @@
         });
     });
 
-    //controller.on('message_received', (bot, message) => {
-    //    var reply = 'Welcome (message_received)!';
-
-    //    console.log(message);
-
-    //    bot.reply(message, reply, (err) => {
-    //        if (err) {
-    //            console.error('error');
-    //        }
-    //        console.log('reply send');
-    //    });
-
-    //});
-
     controller.hears(
         '(hello|yo|hi|salut|bonjour)',
         'message_received',
         (bot, message) => {
+
             console.log('received', message);
-            bot.startConversation(message, (err, convo) => {
-                convo.say('Bonjour !');
-                convo.ask('Comment ça va ?', (response, convo) => {
-                    convo.say(`\
-Je suis trop bête pour comprendre \
-"${response.text}". J'espère que ça va bien !`);
-                    convo.next();
+
+            profile
+                .getProfile(message.user)
+                .then((user) => {
+                    bot.startConversation(message, conversation.hello(user));
+                })
+                .catch((err) => {
+                    console.error(err);
+                    bot.reply(message, `J'ai bug, pardons :'(`);
                 });
-            });
         }
     );
 
