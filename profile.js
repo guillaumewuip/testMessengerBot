@@ -26,7 +26,11 @@
                             + `?fields=${fields.join(',')}`
                             + `&access_token=${ACCESS_TOKEN}`;
 
-                request.get(url, (err, response, body) => {
+                request.get(
+                    {
+                        url,
+                        json:true
+                    }, (err, response, body) => {
                     if (!err && response.statusCode === 200) {
                         resolve(body);
                     }
