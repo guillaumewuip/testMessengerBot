@@ -5,8 +5,8 @@
     const api = {
 
         hello: (user) => {
-
             return (response, convo) => {
+                console.log(user);
                 convo.say(`Bonjour ${user.first_name} ${user.last_name} :D`);
                 api.confirmUser(user)(response, convo);
                 convo.next();
