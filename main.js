@@ -51,9 +51,10 @@
     //});
 
     controller.hears(
-        /(hello|yo|hi|salut|bonjour)/i,
+        '(hello|yo|hi|salut|bonjour)',
         'message_received',
         (bot, message) => {
+            console.log('received', message);
             bot.startConversation(message, (err, convo) => {
                 convo.say('Bonjour !');
                 convo.ask('Comment ça va ?', (response, convo) => {
