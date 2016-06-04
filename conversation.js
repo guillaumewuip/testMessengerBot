@@ -72,9 +72,10 @@
             return (response, convo) => {
                 convo.ask('Ça va bien ?', [
                     {
-                        pattern: 'oui|yep|yes|ça va',
+                        pattern: 'oui|yep|yes|ça va|ça roule',
                         callback: (response, convo) => {
                             convo.say(`Voilà qui fait plaisir à entendre !`);
+                            api.end(user)(response, convo);
                             convo.next();
                         }
                     },
@@ -82,6 +83,7 @@
                         pattern: 'no|non|nope|pas fort|bof|trise',
                         callback: (response, convo) => {
                             convo.say(`ohhh :'( #triste`);
+                            api.end(user)(response, convo);
                             convo.next();
                         }
                     },
@@ -89,20 +91,19 @@
                         default: true,
                         callback: (response, convo) => {
                             convo.say('Je prends ça pour un oui !');
+                            api.end(user)(response, convo);
                             convo.next();
                         }
                     }
                 ]);
-
-                api.end(user)(response, convo);
             }
         },
 
         end: (user) => {
             return (response, convo) => {
-                convo.ask(`Bon écoute ${user.first_name}`);
-                convo.ask(`Ça m'a fait plaisir de t'entendre !`);
-                convo.ask(`++`);
+                convo.say(`Bon écoute ${user.first_name}`);
+                convo.say(`Ça m'a fait plaisir de t'entendre !`);
+                convo.say(`++`);
             };
         },
 
