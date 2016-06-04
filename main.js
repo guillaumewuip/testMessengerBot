@@ -25,13 +25,13 @@
 
     const bot = controller.spawn();
 
-    controller.setupWebServer(PORT, (err, webserver) => {
+    controller.setupWebserver(PORT, (err, webserver) => {
 
         if (err) {
             console.error(err);
         }
 
-        controller.createWebHookEndpoints(webserver, bot, () => {
+        controller.createWebhookEndpoints(webserver, bot, () => {
             console.log(`Listening on port ${PORT}`);
         });
     });
