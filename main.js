@@ -51,7 +51,7 @@
     });
 
     controller.hears(
-        /(hello|yo|hi|salut|bonjour|/i,
+        /(hello|yo|hi|salut|bonjour)/i,
         'message_received',
         (bot, message) => {
             bot.startConversation(message, (err, convo) => {
