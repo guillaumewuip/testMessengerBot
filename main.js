@@ -18,7 +18,7 @@
         throw new Error('FACEBOOK_VERIFY_TOKEN is required but missing');
     }
 
-    const controller = Botkit.facebook({
+    const controller = Botkit.facebookbot({
         access_token: ACCESS_TOKEN,
         verify_token: VERIFY_TOKEN
     });
