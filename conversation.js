@@ -7,7 +7,7 @@
         hello: (user) => {
 
             return (response, convo) => {
-                convo.say(`Bonjour ${user.first_name} ${user.last_name}`);
+                convo.say(`Bonjour ${user.first_name} ${user.last_name} :D`);
                 api.confirmUser(user)(response, convo);
                 conv.next();
             }
@@ -24,7 +24,7 @@
                                 {
                                     'title': `${user.first_name} `
                                             + `${user.last_name}`,
-                                    'image_url': user.profile.pic,
+                                    'image_url': user.profile_pic,
                                     'subtitle': 'Est-ce bien vous ?',
                                     'buttons': [
                                         {
