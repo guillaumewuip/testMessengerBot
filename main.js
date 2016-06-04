@@ -36,21 +36,10 @@
         });
     });
 
-
-    controller.on('facebook_optin', (bot, message) => {
-        var reply = 'Welcome (facebook_optin)!';
-
-        bot.reply(message, reply, (err) => {
-            if (err) {
-                console.error('error');
-            }
-            console.log('reply send');
-        });
-
-    });
-
     controller.on('message_received', (bot, message) => {
         var reply = 'Welcome (message_received)!';
+
+        console.log(message);
 
         bot.reply(message, reply, (err) => {
             if (err) {
