@@ -59,7 +59,7 @@
                 convo.say('Bonjour !');
                 convo.ask('Comment ça va ?', (response, convo) => {
                     convo.say(`Je suis trop bête pour comprendre
-                              "${response.text}". J'espère que ça va bien !`);
+ "${response.text}". J'espère que ça va bien !`);
                     convo.next();
                 });
             });
