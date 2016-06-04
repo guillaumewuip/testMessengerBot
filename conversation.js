@@ -9,7 +9,7 @@
             return (response, convo) => {
                 convo.say(`Bonjour ${user.first_name} ${user.last_name} :D`);
                 api.confirmUser(user)(response, convo);
-                conv.next();
+                convo.next();
             }
         },
 
