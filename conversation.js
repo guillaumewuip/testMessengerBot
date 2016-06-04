@@ -72,7 +72,7 @@
             return (response, convo) => {
                 convo.ask('Ça va bien ?', [
                     {
-                        pattern: convo.utterances.yes,
+                        pattern: 'oui|yep|yes|ça va',
                         callback: (response, convo) => {
                             convo.say(`Voilà qui fait plaisir à entendre !`);
                             convo.next();
@@ -80,7 +80,7 @@
                         }
                     },
                     {
-                        pattern: 'no',
+                        pattern: 'no|non|nope|pas fort|bof|trise',
                         callback: (response, convo) => {
                             convo.say(`ohhh :'( #triste`);
                             convo.stop();
